@@ -1,0 +1,4 @@
+terminaltables
+fastargs @ git+https://github.com/Phoveran/fastargs.git
+tqdm
+torchmetrics
