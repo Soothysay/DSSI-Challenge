@@ -1,0 +1,28 @@
+{
+    "network": {
+        "architecture": "squeezenet"
+    },
+    "train": {
+        "seed": 7777,
+        "epoch": 100,
+        "scheduler_type": "cosine",
+        "optimizer": {
+            "type": "Adam",
+            "lr": 0.001,
+            "weight_decay": 0.0005,
+            "momentum": 0.9
+        },
+        "scheduler": {
+            "step": {
+                "step_ratio": null,
+                "step_size": null
+            },
+            "cyclic": {
+                "lr_peak_epoch": null
+            }
+        }
+    },
+    "logging": {
+        "save_intermediate_frequency": null
+    }
+}
