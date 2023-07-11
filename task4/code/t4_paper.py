@@ -137,9 +137,13 @@ def activation_time_metric(true_data, predicted_data):
     case_metrics = []
     
     for true_case, predicted_case in zip(true_data, predicted_data):
-        true_argmax = np.argmax(true_case, axis=0)
-        predicted_argmax = np.argmax(predicted_case, axis=0)
-        abs_diff = np.abs(true_argmax - predicted_argmax)
+        true_act = []
+        pred_act = []
+        for node in range(0,75,1):
+            true_act.append(np.argmax(true_case[:,node]>0)
+            pred_act.append(np.argmax(predicted_case[:,node]>0)
+        
+        abs_diff = np.abs(np.array(true_act) - np.array(pred_act))
         case_metric = np.mean(abs_diff) #, np.var(abs_diff)
         case_metrics.append(case_metric)
     
