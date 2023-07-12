@@ -28,6 +28,7 @@ tic = time.time()
 # Create an empty list to hold ECG and V matrices
 ECG_list = [] 
 V_list = []
+V_list2 = []
 
 # Loop over the cases and load the matrices
 for case in range(len(file_pairs)):
@@ -46,6 +47,7 @@ for case in range(len(file_pairs)):
     
     ## V
     V = np.load(file_pairs[case][1])
+    V_list2.append(V)
 
     # Normalize V so that "value range is [0,1]"
     V = V - np.min(V)
@@ -57,14 +59,20 @@ for case in range(len(file_pairs)):
 # Reshape into tensor for dimension agreement
 ECGtens = np.array(ECG_list)
 Vtens = np.array(V_list)
+Vtens2 = np.array(V_list2)
 
 
 toc = time.time()
 print(f"time to normalize/load = {toc-tic}")
 
+# normalize Vtens2 ("global" normalization)
+Vmin = np.min(Vtens2)
+Vtens2 = Vtens2 - Vmin
+Vmax = np.max(Vtens2)
+Vtens2 = Vtens2/Vmax
 
 # make training and testing data
-X, XX, y, yy = train_test_split(ECGtens, Vtens, test_size=0.05, random_state=42)
+X, XX, y, yy = train_test_split(ECGtens, Vtens2, test_size=0.05, random_state=42)
 
 
 class FireModule(tf.keras.layers.Layer):
